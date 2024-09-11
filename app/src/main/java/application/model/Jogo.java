@@ -21,17 +21,36 @@ public class jogo{
     @Column (unique = true, nullable = false)
     private String titulo;
     
-public void setId(long id) {
-    this.id = id;
-}
-public long getId() {
-    return id;
-}
-public void settitulo(String titulo) {
-    this.titulo = titulo;
-}
-public String gettitulo() {
-    return titulo;
-}
+    @ManyToMany
+    @JoinTable(
+        name = "jogos_possuem_plataformas",
+        joinColumns = @joinColumn(name = "id_plataformas")
+    )
+    private Set<plataforma> plataformas = new HashSet<>();
 
+    public void setId(long id) {
+        this.id = id;
+    }
+    public long getId() {
+        return id;
+    }
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public Categoria getCategoria(){
+        return categoria;
+    }
+    public void setCategoria(Categoria categoria){
+        this.categoria = categoria;
+    }
+    public Set<Plataforma> getPlataformas(){
+        return plataformas;
+    }
+    public void setPlataformas(Set<Plataforma>plataformas){
+        this.plataformas = plataformas;
+    }
 }

@@ -20,18 +20,30 @@ public class Plataforma{
     private long id;
     @Column (unique = true, nullable = false)
     private String Nome;
+
+    @ManyToMany(mappedBy = "plataformas")
+    private Set<Jogo> jogos = new HashSet<>();
     
-public void setId(long id) {
-    this.id = id;
-}
-public long getId() {
-    return id;
-}
-public void setNome(String Nome) {
-    this.Nome = Nome;
-}
-public String getNome() {
-    return Nome;
-}
+    public void setId(long id) {
+        this.id = id;
+    }
+    public long getId() {
+        return id;
+    }
+    public void setNome(String Nome) {
+        this.Nome = Nome;
+    }
+    public String getNome() {
+        return Nome;
+    }
+
+    public Set<Jogo> getJogos(){
+        return jogos;
+    }
+
+    public void setJogos(Set<Jogo> jogos){
+        this.jogos = jogos;
+    }
+
 
 }
