@@ -1,5 +1,6 @@
 package application.controller;
 
+import java.util.Optional;
 import java.util.optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,56 @@ public class CategoriaController{
         categoria.setNome(nome);
 
         categoriaRepo.save(categoria);
+
+        return "redirect:/categoria/list";
+    }
+
+    @RequestMapping("/update")
+    public String update(
+        RequestParam("id") long id,
+        Model ui)
+
+        Optional<Categoria> categoria = categoriaRepo.findById(id);
+
+        if(categoria.isPresent()){
+            ui.addAttribute("categoria", categoria.get());
+            return "categoria/update";
+
+        return "redirect:/categoria/list";
+        }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String update(
+        @RequestParam("id") long id,
+        @RequestParam("nome") String nome){
+        
+        Optional<Categoria> categoria = categoriaRepo.findById(id);
+        if(categoria.isPresent()){
+            categoria.get().setNome(nome);
+
+            categoriaRepo.save(categoria.get());
+        }
+        return "redirect:/categoria/list";
+        }
+
+    @RequestMapping("/delete")
+    public String deleted(
+        @RequestParam("id") long id,
+        Model ui){
+        
+        Optional<Categoria> categoria = categoria.Repo.findById(id);
+
+        if(categoria.isPresent()){
+            ui.addAttribute("categoria", categoria.get())
+            return "categoria/delete";
+        }
+
+        return "redirect:/categoria/list";
+         }
+    
+    @RequestMapping(value="/delete", method = RequestMethod.POST)
+    public String delete(@RequestParam("id") long id){
+        categoriaRepo.deleteById(id);
 
         return "redirect:/categoria/list";
     }
