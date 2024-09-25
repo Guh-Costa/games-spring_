@@ -1,49 +1,50 @@
 package application.model;
-import java.util.hashSet;
-import java.lang.annotation.Inherited;
-import java.nio.file.FileSystem;
+
+import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persitence.Column;
-import jacarta.persitence.Entity;
-import jacarta.persitence.GeneratedValue;
-import jacarta.persitence.GerantionType;
-import jacarta.persitence.Id;
-import jacarta.persitence.OneToMany;
-import jacarta.persitence.table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 @Entity
-@table (name = "Plataformas")
-public class Plataforma{
-    @Id
-    @GeneratedValue(strategy = GerantionType.IDENTIFY)
-    private long id;
-    @Column (unique = true, nullable = false)
-    private String Nome;
+@Table(name = "plataformas")
+public class Plataforma {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
+  
+  @Column(unique = true, nullable = false)
+  private String nome;
 
-    @ManyToMany(mappedBy = "plataformas")
-    private Set<Jogo> jogos = new HashSet<>();
-    
-    public void setId(long id) {
-        this.id = id;
-    }
-    public long getId() {
-        return id;
-    }
-    public void setNome(String Nome) {
-        this.Nome = Nome;
-    }
-    public String getNome() {
-        return Nome;
-    }
+  @ManyToMany(mappedBy = "plataformas")
+  private Set<Jogo> jogos = new HashSet<>();
 
-    public Set<Jogo> getJogos(){
-        return jogos;
-    }
+  public long getId() {
+    return id;
+  }
 
-    public void setJogos(Set<Jogo> jogos){
-        this.jogos = jogos;
-    }
+  public void setId(long id) {
+    this.id = id;
+  }
 
+  public String getNome() {
+    return nome;
+  }
 
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
+
+  public Set<Jogo> getJogos() {
+    return jogos;
+  }
+
+  public void setJogos(Set<Jogo> jogos) {
+    this.jogos = jogos;
+  }
 }
